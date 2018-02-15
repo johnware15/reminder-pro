@@ -14,14 +14,34 @@ class App extends Component {
     this.props.addReminder(this.state.text)
   }
 
+  renderReminders() {
+    const { reminders } = this.props
+    return (
+      <ul className="list-group col-sm-4">
+        {
+          reminders.map((reminder, index) => {
+            console.log('reminder :: =>', reminder)
+            return (
+              <li key={ index } className="list-group-item">
+                <div className="list-item">{reminder.text}</div>
+                <div className="list-item delete-button">
+                  &#x2715;
+                </div>
+              </li>
+            )
+          })
+        }
+      </ul>
+    )
+  }
+
   render() {
-    console.log('this.props', this.props);
     return (
       <div className="app">
         <div className="title">
           Reminder Pro
         </div>
-        <div className="form-inline">
+        <div className="form-inline reminder-form">
           <div className="form-group">
             <input
               className="form-control"
@@ -37,6 +57,7 @@ class App extends Component {
             Add Reminder
           </button>
         </div>
+        { this.renderReminders() }
       </div>
     )
   }
